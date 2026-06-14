@@ -1,0 +1,9 @@
+{
+  "id": "kalk-obt",
+  "name": "Kalk OBT",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "A small educational calculator for ESS251 public keys and ASH24 hashes.",
+  "author": "Yenda",
+  "isDesktopOnly": false
+}
