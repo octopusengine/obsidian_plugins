@@ -1,40 +1,65 @@
-# XOR Cipher — Obsidian plugin
+# XOR Cipher - Obsidian plugin
 
-Port `xor_key.py` (Agama Cipher) do Obsidian pluginu.
+Port of `xor_key.py` from Agama Cipher to an Obsidian plugin.
 
-## Instalace
+## Installation
 
-Zkopíruj složku do vaultu:
+Copy the folder into the selected vault:
 
-```
+```text
 <vault>/.obsidian/plugins/xor-cipher/
-├── manifest.json
-└── main.js
+|-- manifest.json
+|-- main.js
+`-- data.json
 ```
 
-V Obsidianu: `Nastavení → Komunita pluginy → Vypnout bezpečný režim`
+In Obsidian, open:
 
-Restartovat vault nebo `Ctrl+P → Reload app without saving`.
-
-## Nastavení klíče
-
-`Nastavení → XOR Cipher` — vlož hex klíč, např.:
-
+```text
+Settings -> Community plugins
 ```
+
+Disable safe mode if needed, refresh the plugin list, and enable `XOR Cipher`.
+
+If the plugin does not appear immediately, restart Obsidian or run:
+
+```text
+Reload app without saving
+```
+
+## Key Settings
+
+Open:
+
+```text
+Settings -> Community plugins -> XOR Cipher
+```
+
+Enter a hex key, for example:
+
+```text
 0c1e24e5917779d297e14d45f14e1a1a
 ```
 
-## Použití
+The key must contain an even number of hex characters.
+After editing the key manually, press `Save` to store it.
 
-1. Označ text v editoru
-2. `Ctrl+P` → `XOR Encrypt` nebo `XOR Decrypt`
+You can also use one of the preset buttons:
 
-Výsledek nahradí označený text přímo v editoru.
+- `Andreas` sets `0c1e24e5917779d297e14d45f14e1a1a`
+- `Trezor` sets `752f85035563adff915ac0c3ae1252ed`
 
-## Kompatibilita s Pythonem
+## Usage
 
-Výstup je byte-pro-byte kompatibilní s `xor_key.py`:
+1. Select text in the editor.
+2. Run `XOR Encrypt` or `XOR Decrypt` from the command palette.
 
-- padding na násobek délky klíče, separator `/*`, náhodný ocas
-- rotující XOR
-- při dešifrování se bere jen část před `/*`
+The selected text is replaced with the result.
+
+## Python Compatibility
+
+The output is byte-for-byte compatible with `xor_key.py`:
+
+- padding to a multiple of the key length, with separator `/*` and a random tail,
+- rotating XOR,
+- decryption keeps only the part before `/*`.

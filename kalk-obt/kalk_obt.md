@@ -1,72 +1,98 @@
 # Kalk OBT - Obsidian plugin
 
-Kalk OBT je jednoduchy lokalni plugin do Obsidianu pro male edukacni kryptograficke vypocty z knihoven ve slozce `core`.
+Kalk OBT is a small local Obsidian plugin for educational cryptographic calculations.
 
-Plugin ma dve sekce:
+The plugin has two sections:
 
-- `ess251` - spocita verejny klic z privatniho klice.
-- `ash24` - spocita 24bitovy hash ze zadaneho vstupu.
+- `ess251` - calculates a public key from a private key.
+- `ash24` - calculates a 24-bit hash from the provided input.
 
-## Instalace
+## Installation
 
-Zkopiruj celou slozku `kalk-obt` do adresare pluginu ve vybranem vaultu:
+Copy the whole `kalk-obt` folder into the plugin directory of the selected vault:
 
 ```text
 <vault>/.obsidian/plugins/kalk-obt/
 |-- manifest.json
 |-- main.js
-|-- kalk_obt.md
-`-- core/
-    |-- ash24.py
-    |-- core.md
-    `-- ess251.py
+|-- core.js
+|-- data.json
+|-- setup.md
+`-- kalk_obt.md
 ```
 
-V Obsidianu potom otevri:
+In Obsidian, open:
 
 ```text
 Settings -> Community plugins
 ```
 
-Vypni safe mode, pokud je potreba, obnov seznam pluginu a zapni plugin `Kalk OBT`.
+Disable safe mode if needed, refresh the plugin list, and enable `Kalk OBT`.
 
-Kdyz se plugin neobjevi hned, restartuj Obsidian nebo pouzij prikaz:
+If the plugin does not appear immediately, restart Obsidian or run:
 
 ```text
 Reload app without saving
 ```
 
-## Pouzivani
+## Usage
 
-1. Otevri command palette pres `Ctrl+P`.
-2. Spust prikaz `Kalk OBT: Open calculator`.
-3. V sekci `ess251` zadej celociselny privatni klic a stiskni `Calculate`.
-4. V sekci `ash24` zadej textovy vstup a stiskni `Calculate`.
+1. Open the command palette with `Ctrl+P`.
+2. Run `Kalk OBT: Open calculator`.
+3. In the `ess251` section, enter an integer private key and press `Calculate`.
+4. In the `ash24` section, enter text input and press `Calculate`.
 
-Plugin jde otevrit take ikonou kalkulacky v levem ribbon panelu Obsidianu.
+The plugin can also be opened with the calculator icon in the left Obsidian ribbon.
+
+## Structure
+
+`main.js` contains the Obsidian UI layer. `core.js` contains the reusable calculation and formatting functions used by the plugin.
+
+## Settings
+
+Settings are available at:
+
+```text
+Settings -> Community plugins -> Kalk OBT
+```
+
+The plugin stores values in `data.json`.
+
+Default values:
+
+```json
+{
+  "generator": [10, 76],
+  "modulo": 251
+}
+```
+
+Group order is not stored separately. It is calculated as `modulo + 1`.
+
+Use the `ess251` preset button in settings to restore the default `generator` and `modulo` values.
 
 ## ess251
 
-Sekce `ess251` pocita verejny klic podle hrackove elipticke krivky:
+The `ess251` section calculates a public key on this toy elliptic curve:
 
 ```text
 y^2 = x^3 + 7 mod 251
-G = (1, 192)
-ORDER_N = 252
+G = (10, 76)
+ORDER_N = P_MOD + 1
 ```
 
-Vysledek se zobrazi jako bod a jako hex tvar slozeny z bajtu `x` a `y`:
+The result is displayed as a point and as a hex value made from the `x` and `y` bytes:
 
 ```text
 point: (x, y)
-hexa: xxyy
+hex: xxyy
 ```
 
-Pri nekterych hodnotach muze byt vysledek `Point at infinity`.
+Some values can produce `Point at infinity`.
 
 ## ash24
 
-Sekce `ash24` pocita hash vstupu jako UTF-8 bajtu. Vysledek se zobrazuje ve trech formatech:
+The `ash24` section hashes the input as UTF-8 bytes. The result is displayed in three formats:
 
 ```text
 hex: 0xaabbcc
@@ -74,6 +100,6 @@ dec: 11189196
 bin: 101010101011101111001100
 ```
 
-## Poznamka
+## Note
 
-`ess251` i `ash24` jsou edukacni algoritmy. Nejsou urcene pro realne bezpecnostni nebo kryptograficke pouziti.
+`ess251` and `ash24` are educational algorithms. They are not intended for real security or cryptographic use.
