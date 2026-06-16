@@ -1,0 +1,9 @@
+{
+  "id": "js-action",
+  "name": "JS Action",
+  "version": "0.1.0",
+  "minAppVersion": "0.15.0",
+  "description": "Run named actions from js-action markdown code blocks.",
+  "author": "Yenda",
+  "isDesktopOnly": false
+}

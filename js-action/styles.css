@@ -1,0 +1,8 @@
+.js-action-result {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.js-action-error {
+  color: var(--text-error);
+}
